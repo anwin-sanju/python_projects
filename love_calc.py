@@ -1,8 +1,8 @@
 print("The Love Calculator is calculating your score...")
 name1 = input() # What is your name?
 name2 = input() # What is their name?
-name1 = name1.lower();
-name2 = name2.lower();
+name1 = name1.lower()
+name2 = name2.lower()
 full_name = name1+name2
 t = full_name.count("t")
 r = full_name.count("r")
