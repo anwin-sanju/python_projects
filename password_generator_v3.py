@@ -20,4 +20,10 @@ for sym in range(1,nr_symbols+1):
     password_list += random.choice(symbols)
 
 random.shuffle(password_list)
-print(password_list)
+#print(password_list)
+
+password = ""
+for i in password_list:
+    password += i
+
+print(password)
