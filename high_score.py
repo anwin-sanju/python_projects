@@ -7,4 +7,4 @@ for i in student_scores:
   if i > max:
     max = i
 
-print(max)
+print(f"The highest score in the class is: {max}")
