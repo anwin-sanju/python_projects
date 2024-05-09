@@ -26,3 +26,9 @@ for l in range(1, nr_symbols+1):
     password_list.append(symbols[random_symbols_num])
 
 print(password_list)
+
+password = ""
+for ele in password_list:
+    password+=ele
+
+print(password)
