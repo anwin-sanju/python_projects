@@ -1,4 +1,4 @@
-from replit import clear
+import os
 from art import logo
 print(logo)
 
@@ -13,7 +13,8 @@ while not finished:
   more_bidders = input("Are there any other bidders? Type 'yes' or 'no'. ")
   if more_bidders == "no":
       finished = True
-  clear()
+      clear = lambda: os.system('clear')
+      clear()
   for bidder in bids:
     highest_bid = 0
     winner = ""
