@@ -53,10 +53,10 @@ def play_game():
             is_gameover = True
         else:
             user_should_continue = input("Do you want to draw another card? Type 'y' or 'n': ")
-        if user_should_continue == "y":
-            user_cards.append(deal_card())
-        else:
-            is_gameover = True
+            if user_should_continue == "y":
+                user_cards.append(deal_card())
+            else:
+                is_gameover = True
 
     while computer_score != 0 and computer_score < 17:
         computer_cards.append(deal_card())
