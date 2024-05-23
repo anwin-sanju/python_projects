@@ -1,79 +1,67 @@
 import random
-
 from art import logo
 print(logo)
 
-cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-
-should_play = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
 def deal_card():
+  cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
   return random.choice(cards)
 
-user_bet = int(input("How much do you want to bet? $"))
+def calculate_score(cards):
+  if sum(cards) == 21 and len(cards) == 2:
+     return 0
+  if 11 in cards and sum(cards) > 21:
+     cards.remove(11)
+     cards.append(1)
+  return sum(cards)
+
+def compare(user_score, computer_score):
+  if user_score > 21 and computer_score > 21:
+    return "You went over. You lose 😤"
+
+  if user_score == computer_score:
+    return "Draw 🙃"
+  elif computer_score == 0:
+    return "Lose, opponent has Blackjack 😱"
+  elif user_score == 0:
+    return "Win with a Blackjack 😎"
+  elif user_score > 21:
+    return "You went over. You lose 😭"
+  elif computer_score > 21:
+    return "Opponent went over. You win 😁"
+  elif user_score > computer_score:
+    return "You win 😃"
+  else:
+    return "You lose 😤"
   
 user_cards = []
 computer_cards = []
+is_gameover = False
 
-if should_play == "y":
-  for i in range(0,2):
-    user_choice = deal_card()
-    user_cards.append(user_choice)
-    computer_choice = deal_card()
-    computer_cards.append(computer_choice)
-else:
-  print("Goodbye")
+for i in range(2):
+    user_cards.append(deal_card())
+    computer_cards.append(deal_card())
 
-print(f"User got : {user_cards}")
-print(f"Computer got :{computer_cards}")
+while not is_gameover:
+    user_score = calculate_score(cards=user_cards)
+    computer_score = calculate_score(cards=computer_cards)
 
-def add(cards_list):
-  sum = 0
-  for i in cards_list:
-    sum += i
-  print(sum)
-  return sum
+    print(f"Your cards are {user_cards} and score is {user_score}.")
+    print(f"Computer's first card is {user_cards[0]}")
 
-if user_cards == [11,10] or user_cards == [10,11]:
-  print("User got a blackjack")
-elif computer_cards == [11,10] or computer_cards == [10,11]:
-  print("Computer got a blackjack")
-
-user_total = add(user_cards)
-computer_total = add(computer_cards)
-
-if user_total > 21:
-  for i in user_cards:
-    if i == 11:
-      i = 1
-      user_total = add(user_cards)
+    if user_score == 0 or computer_score == 0 or user_score > 21:
+        is_gameover = True
     else:
-      print("User loses")
-elif computer_total > 21:
-  for i in computer_cards:
-    if i == 11:
-      i = 1
-      computer_total = add(computer_cards)
-  print("Computer loses")
+        user_should_continue = input("Do you want to draw another card? Type 'y' or 'n': ")
+    if user_should_continue == "y":
+        user_cards.append(deal_card())
+    else:
+       is_gameover = True
 
-def compare(user_total, computer_total):
-  if user_total > computer_total:
-    print("User wins")
-  elif computer_total > user_total:
-    print("Computer wins")
-  elif user_total == computer_total:
-    print("Draw")
+while computer_score != 0 and computer_score < 17:
+   computer_cards.append(deal_card())
+   computer_score = calculate_score(computer_cards)
 
-compare(user_total=user_total, computer_total=computer_total)
+print(f"Your final hand is {user_cards} and final score is {user_score}.")
+print(f"Computer's final hand is {computer_cards} and final score is {computer_score}")
 
-should_continue = input("Do you want to draw another card? Type 'y' or 'n': ")
-if should_continue == "y":
-  user_choice = deal_card()
-  user_cards.append(user_choice)
-  computer_choice = deal_card()
-  computer_cards.append(computer_choice)
-  print(f"User got : {user_cards}")
-  print(f"Computer got :{computer_cards}")
-  user_total = add(user_cards)
-  print(user_total)
-
-compare(user_total=user_total, computer_total=computer_total)
+print(compare(user_score,computer_score))
