@@ -24,7 +24,7 @@ def play_game():
   else:
     attempts = 5
     
-  while attempts > 0:
+  while attempts > 0 or guess != number:
     print(f"You have {attempts} attempts remaining to guess the number.")
     guess = int(input("Make a guess: "))
     result = compare(guess, number)
