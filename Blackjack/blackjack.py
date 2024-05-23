@@ -26,9 +26,9 @@ else:
 print(f"User got : {user_cards}")
 print(f"Computer got :{computer_cards}")
 
-def add(user_cards):
+def add(cards_list):
   sum = 0
-  for i in user_cards:
+  for i in cards_list:
     sum += i
   print(sum)
   return sum
