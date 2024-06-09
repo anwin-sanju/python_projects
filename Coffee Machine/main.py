@@ -39,12 +39,14 @@ resources = {
     "coffee": 100,
 }
 
+
 def is_resource_sufficient(order_ingredients):
     for item in order_ingredients:
         if order_ingredients >= resources[item]:
             print(f"Sorry, there is not enough {item}.")
             return False
     return True
+
 
 def process_coins():
     print("Please insert coins.")
@@ -56,7 +58,6 @@ def process_coins():
 
 
 def is_transaction_successful(money_received, drink_cost):
-    """Return True when the payment is accepted, or False if money is insufficient."""
     if money_received >= drink_cost:
         change = round(money_received - drink_cost, 2)
         print(f"Here is ${change} in change.")
@@ -67,6 +68,10 @@ def is_transaction_successful(money_received, drink_cost):
         print("Sorry that's not enough money. Money refunded.")
         return False
 
+def make_coffee(drink_name, order_ingredients):
+    for item in order_ingredients:
+        resources[item] -= order_ingredients[item]
+    print(f"Here is your {drink_name} ☕️. Enjoy!")
 
 while is_on:
     choice = input("What would you like? (espresso/latte/cappuccino):").lower()
@@ -78,3 +83,5 @@ while is_on:
         drink = MENU[choice]
         if is_resource_sufficient(drink["ingredients"]):
             payment = process_coins()
+            if is_transaction_successful(payment, drink["cost"]):
+                make_coffee(choice, drink["ingredients"])
